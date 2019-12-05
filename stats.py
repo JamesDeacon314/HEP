@@ -1,4 +1,6 @@
 import numpy as np
+import pandas as pd
+import scipy
 
 def showStats(data):
   data_T = data.transpose()
