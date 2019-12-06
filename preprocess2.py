@@ -21,6 +21,7 @@ def process_data(gamma1_filename, neutron1_filename):
     z_vals = []
     e_vals = []
     count = 0
+
     with open(gamma1_filename) as gamma1:
         gamma1_lines = gamma1.readlines()
         for row in gamma1_lines:
@@ -30,9 +31,11 @@ def process_data(gamma1_filename, neutron1_filename):
                 y_vals.append(entry[1])
                 z_vals.append(entry[3])
                 e_vals.append(entry[2])
+                    
                 count += 1
             else:
-                data_gamma1.append(np.array([np.std(x_vals), np.std(y_vals), np.std(z_vals), np.std(e_vals), np.mean(x_vals), np.mean(y_vals), np.mean(z_vals), np.mean(e_vals), weighted_std(x_vals, e_vals), weighted_std(y_vals, e_vals), weighted_std(z_vals, e_vals), count, 1]))
+                data_gamma1.append(np.array([np.std(x_vals), np.std(y_vals), np.std(z_vals), np.std(e_vals), np.mean(x_vals), np.mean(y_vals), np.mean(z_vals), np.mean(e_vals), weighted_std(x_vals, e_vals), weighted_std(y_vals, e_vals), weighted_std(z_vals, e_vals), np.amin(x_vals), np.amax(x_vals), np.amin(y_vals), np.amax(y_vals), np.amin(z_vals), np.amax(z_vals), np.amin(e_vals), np.amax(e_vals), count, 1]))
+                
                 x_vals = []
                 y_vals = []
                 z_vals = []
@@ -49,7 +52,7 @@ def process_data(gamma1_filename, neutron1_filename):
                 e_vals.append(entry[2])
                 count += 1
             else:
-                data_neutron1.append(np.array([np.std(x_vals), np.std(y_vals), np.std(z_vals), np.std(e_vals), np.mean(x_vals), np.mean(y_vals), np.mean(z_vals), np.mean(e_vals), weighted_std(x_vals, e_vals), weighted_std(y_vals, e_vals), weighted_std(z_vals, e_vals), count, 0]))
+                data_neutron1.append(np.array([np.std(x_vals), np.std(y_vals), np.std(z_vals), np.std(e_vals), np.mean(x_vals), np.mean(y_vals), np.mean(z_vals), np.mean(e_vals), weighted_std(x_vals, e_vals), weighted_std(y_vals, e_vals), weighted_std(z_vals, e_vals), np.amin(x_vals), np.amax(x_vals), np.amin(y_vals), np.amax(y_vals), np.amin(z_vals), np.amax(z_vals), np.amin(e_vals), np.amax(e_vals), count, 0]))
                 x_vals = []
                 y_vals = []
                 z_vals = []
@@ -83,10 +86,18 @@ def process_data(gamma1_filename, neutron1_filename):
     w_xcoords = data[8]
     w_ycoords = data[9]
     w_zcoords = data[10]
-    count = data[11]
-    id_coords = data[12]
+    x_min = data[11]
+    x_max = data[12]
+    y_min = data[13]
+    y_max = data[14]
+    z_min = data[15]
+    z_max = data[16]
+    e_min = data[17]
+    e_max = data[18]
+    count = data[19]
+    id_coords = data[20]
 
-    X = np.array([x_coords, y_coords, z_coords, E_coords, xm_coords, ym_coords, zm_coords, Em_coords, w_xcoords, w_ycoords, w_zcoords, count]).transpose()
+    X = np.array([x_coords, y_coords, z_coords, E_coords, xm_coords, ym_coords, zm_coords, Em_coords, w_xcoords, w_ycoords, w_zcoords, x_min, x_max, y_min, y_max, z_min, z_max, e_min, e_max, count]).transpose()
     Y = np.round(id_coords, decimals=0)
     Y[Y < 0] = 0
 
