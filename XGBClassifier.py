@@ -6,7 +6,7 @@ import xgboost as xgb
 from xgboost.sklearn import XGBClassifier
 
 from model import modelfit
-from preprocess2 import process_data
+from preprocess3 import process_data
 import load_data
 gamma1_filename = load_data.gamma1_filename
 neutron1_filename = load_data.neutron1_filename

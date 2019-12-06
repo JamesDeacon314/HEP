@@ -13,9 +13,11 @@ def weighted_std(values, weights):
     variance = np.average((values-average)**2, weights=weights)
     return (math.sqrt(variance))
 
-def process_data(gamma1_filename, neutron1_filename):
+def process_data(gamma1_filename, gamma2_filename, neutron1_filename, neutron2_filename):
     data_gamma1 = []
+    data_gamma2 = []
     data_neutron1 = []
+    data_neutron2 = []
     x_vals = []
     y_vals = []
     z_vals = []
