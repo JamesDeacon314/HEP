@@ -3,6 +3,7 @@ import pandas as pd
 import scipy
 
 from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
 
 from stats import showStats
 
@@ -63,6 +64,25 @@ def process_data(gamma1_filename, neutron1_filename):
     scaler = preprocessing.StandardScaler().fit(data)
     print("scaler mean: {}".format(scaler.mean_))
     print("scaler scale: {}".format(scaler.scale_))
-    data = scaler.transform(data)
 
-    return data
+    data = scaler.transform(data).transpose()
+    x_coords = data[0]
+    y_coords = data[1]
+    z_coords = data[2]
+    E_coords = data[3]
+    xm_coords = data[4]
+    ym_coords = data[5]
+    zm_coords = data[6]
+    Em_coords = data[7]
+    count = data[8]
+    id_coords = data[9]
+
+    X = np.array([x_coords, y_coords, z_coords, E_coords, xm_coords, ym_coords, zm_coords, Em_coords, count]).transpose()
+    Y = np.round(id_coords, decimals=0)
+    Y[Y < 0] = 0
+
+    seed = 7
+    test_size = 0.2
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=test_size, random_state=seed)
+
+    return (X_train, X_test, Y_train, Y_test)
