@@ -23,4 +23,4 @@ Ydf = pd.DataFrame(Y_train, columns=['id'])
 Xtdf = pd.DataFrame(X_test, columns=['x_std', 'y_std', 'z_std', 'E_std', 'x_mean', 'y_mean', 'z_mean', 'E_mean', 'count'])
 Ytdf = pd.DataFrame(Y_test, columns=['id'])
 
-modelfit(alg, Xdf, Ydf, Xtdf, Ytdf)
+modelfit(alg, Xdf, Ydf, Xtdf, Ytdf, "XGBC_results.csv", "XGBC_results_probs.csv")

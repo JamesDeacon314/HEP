@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import scipy
-import csv
 
 import xgboost as xgb
 
@@ -11,8 +10,9 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 from model_report import model_report
+from save_results import save_results
 
-def modelfit(alg, X, y, X_test, y_test, useTrainCV=True, cv_folds=5, early_stopping_rounds=80):
+def modelfit(alg, X, y, X_test, y_test, name1, name2, useTrainCV=True, cv_folds=5, early_stopping_rounds=80):
 
     if useTrainCV:
         xgb_param = alg.get_xgb_params()
@@ -32,14 +32,9 @@ def modelfit(alg, X, y, X_test, y_test, useTrainCV=True, cv_folds=5, early_stopp
     dtest_predprob = alg.predict_proba(X_test)[:,1]
 
     model_report(y, dtrain_predictions, dtrain_predprob, y_test, dtest_predictions, dtest_predprob)
+    save_results(name1, name2, dtest_predictions, dtest_predprob)
 
     feat_imp = pd.Series(alg.get_booster().get_fscore()).sort_values(ascending=False)
     feat_imp.plot(kind='bar', title='Feature Importances')
     plt.ylabel('Feature Importance Score')
     plt.show()
-
-    with open('results1.csv', 'w') as f:
-        writer = csv.writer(f)
-        writer.writerow(['id,prediction'])
-        for i in range(len(dtest_predictions)):
-            writer.writerow([str(i) + ',' + str(dtest_predictions[i])])
