@@ -13,9 +13,11 @@ def weighted_std(values, weights):
     variance = np.average((values-average)**2, weights=weights)
     return (math.sqrt(variance))
 
-def process_data(gamma1_filename, neutron1_filename):
+def process_data(gamma1_filename, gamma2_filename, neutron1_filename, neutron2_filename):
     data_gamma1 = []
+    data_gamma2 = []
     data_neutron1 = []
+    data_neutron2 = []
     x_vals = []
     y_vals = []
     z_vals = []
@@ -31,11 +33,30 @@ def process_data(gamma1_filename, neutron1_filename):
                 y_vals.append(entry[1])
                 z_vals.append(entry[3])
                 e_vals.append(entry[2])
-                    
+
                 count += 1
             else:
                 data_gamma1.append(np.array([np.std(x_vals), np.std(y_vals), np.std(z_vals), np.std(e_vals), np.mean(x_vals), np.mean(y_vals), np.mean(z_vals), np.mean(e_vals), weighted_std(x_vals, e_vals), weighted_std(y_vals, e_vals), weighted_std(z_vals, e_vals), np.amin(x_vals), np.amax(x_vals), np.amin(y_vals), np.amax(y_vals), np.amin(z_vals), np.amax(z_vals), np.amin(e_vals), np.amax(e_vals), count, 1]))
-                
+
+                x_vals = []
+                y_vals = []
+                z_vals = []
+                e_vals = []
+                count = 0
+    with open(gamma2_filename) as gamma2:
+        gamma2_lines = gamma2.readlines()
+        for row in gamma2_lines:
+            entry = [float(x) for x in row.split()]
+            if len(entry) == 4:
+                x_vals.append(entry[0])
+                y_vals.append(entry[1])
+                z_vals.append(entry[3])
+                e_vals.append(entry[2])
+
+                count += 1
+            else:
+                data_gamma2.append(np.array([np.std(x_vals), np.std(y_vals), np.std(z_vals), np.std(e_vals), np.mean(x_vals), np.mean(y_vals), np.mean(z_vals), np.mean(e_vals), weighted_std(x_vals, e_vals), weighted_std(y_vals, e_vals), weighted_std(z_vals, e_vals), np.amin(x_vals), np.amax(x_vals), np.amin(y_vals), np.amax(y_vals), np.amin(z_vals), np.amax(z_vals), np.amin(e_vals), np.amax(e_vals), count, 1]))
+
                 x_vals = []
                 y_vals = []
                 z_vals = []
@@ -57,7 +78,25 @@ def process_data(gamma1_filename, neutron1_filename):
                 y_vals = []
                 z_vals = []
                 e_vals = []
-                count = 0              
+                count = 0
+    with open(neutron2_filename) as neutron2:
+        neutron2_lines = neutron2.readlines()
+        for row in neutron2_lines:
+            entry = [float(x) for x in row.split()]
+            if len(entry) == 4:
+                x_vals.append(entry[0])
+                y_vals.append(entry[1])
+                z_vals.append(entry[3])
+                e_vals.append(entry[2])
+                count += 1
+            else:
+                data_neutron2.append(np.array([np.std(x_vals), np.std(y_vals), np.std(z_vals), np.std(e_vals), np.mean(x_vals), np.mean(y_vals), np.mean(z_vals), np.mean(e_vals), weighted_std(x_vals, e_vals), weighted_std(y_vals, e_vals), weighted_std(z_vals, e_vals), np.amin(x_vals), np.amax(x_vals), np.amin(y_vals), np.amax(y_vals), np.amin(z_vals), np.amax(z_vals), np.amin(e_vals), np.amax(e_vals), count, 0]))
+                x_vals = []
+                y_vals = []
+                z_vals = []
+                e_vals = []
+                count = 0
+
     data = np.array(data_gamma1 + data_neutron1)
 
     print("data shape: {}".format(data.shape))
