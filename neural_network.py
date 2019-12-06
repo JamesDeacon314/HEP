@@ -10,9 +10,10 @@ from sklearn.metrics import accuracy_score
 
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Dropout
+from sklearn.metrics import mean_squared_error
 
 from model import modelfit
-from preprocess2 import process_data
+from preprocess3 import process_data
 from model_report import model_report
 from save_results import save_results
 import load_data
@@ -59,5 +60,6 @@ Ydf = pd.DataFrame(Y_train, columns=['id'])
 Ytdf = pd.DataFrame(Y_test, columns=['id'])
 
 model_report(Ydf, train_pred, train_predprob, Ytdf, test_pred, test_predprob)
+print(mean_squared_error(Ydf, train_predprob))
 save_results("NN_train_results2.csv", "NN_train_probs2.csv", train_pred, train_predprob)
 save_results("NN_results2.csv", "NN_results_probs2.csv", test_pred, test_predprob)

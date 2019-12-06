@@ -97,7 +97,7 @@ def process_data(gamma1_filename, gamma2_filename, neutron1_filename, neutron2_f
                 e_vals = []
                 count = 0
 
-    data = np.array(data_gamma1 + data_neutron1)
+    data = np.array(data_gamma1 + data_gamma2 + data_neutron1 + data_neutron2)
 
     print("data shape: {}".format(data.shape))
     print("some statistics...")

@@ -13,3 +13,9 @@ def save_results(name1, name2, results, predprobs):
         writer = csv.writer(f, delimiter=',', quoting=csv.QUOTE_NONE)
         writer.writerow(['prediction'])
         writer.writerow(predprobs)
+
+def save_prob_results(name, results):
+    with open(name, 'w') as f:
+        writer = csv.writer(f, delimiter=',', quoting=csv.QUOTE_NONE)
+        writer.writerow(['prediction'])
+        writer.writerow(results)

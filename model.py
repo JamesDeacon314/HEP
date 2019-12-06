@@ -6,6 +6,7 @@ import xgboost as xgb
 
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
 
 import matplotlib.pyplot as plt
 
@@ -34,6 +35,8 @@ def modelfit(alg, X, y, X_test, y_test, name1, name2, name3, name4, useTrainCV=T
     model_report(y, dtrain_predictions, dtrain_predprob, y_test, dtest_predictions, dtest_predprob)
     save_results(name3, name4, dtrain_predictions, dtrain_predprob)
     save_results(name1, name2, dtest_predictions, dtest_predprob)
+
+    print(mean_squared_error(y, dtrain_predprob))
 
     feat_imp = pd.Series(alg.get_booster().get_fscore()).sort_values(ascending=False)
     feat_imp.plot(kind='bar', title='Feature Importances')

@@ -25,9 +25,9 @@ alg = XGBClassifier(learning_rate=0.1, n_estimators=500, max_depth=5,
 #
 #                        objective='binary:logistic', nthread=4, scale_pos_weight=1, seed=27)
 
-Xdf = pd.DataFrame(X_train, columns=['x_std', 'y_std', 'z_std', 'E_std', 'x_mean', 'y_mean', 'z_mean', 'E_mean', 'w_x', 'w_y', 'w_z', 'count'])
+Xdf = pd.DataFrame(X_train, columns=['x_std', 'y_std', 'z_std', 'E_std', 'x_mean', 'y_mean', 'z_mean', 'E_mean', 'w_x', 'w_y', 'w_z', 'xmin', 'xmax', 'ymin', 'ymax', 'zmin', 'zmax', 'emin', 'emax', 'count'])
 Ydf = pd.DataFrame(Y_train, columns=['id'])
-Xtdf = pd.DataFrame(X_test, columns=['x_std', 'y_std', 'z_std', 'E_std', 'x_mean', 'y_mean', 'z_mean', 'E_mean', 'w_x', 'w_y', 'w_z', 'count'])
+Xtdf = pd.DataFrame(X_test, columns=['x_std', 'y_std', 'z_std', 'E_std', 'x_mean', 'y_mean', 'z_mean', 'E_mean', 'w_x', 'w_y', 'w_z', 'xmin', 'xmax', 'ymin', 'ymax', 'zmin', 'zmax', 'emin', 'emax', 'count'])
 Ytdf = pd.DataFrame(Y_test, columns=['id'])
 
 modelfit(alg, Xdf, Ydf, Xtdf, Ytdf, "XGBC_results.csv", "XGBC_results_probs.csv", "XGBC_train_results.csv", "XGBC_trains_probs.csv")
