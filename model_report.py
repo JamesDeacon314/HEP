@@ -16,3 +16,6 @@ def model_report_test(y, pred, predprob):
     print("\nModel Report")
     print("Accuracy (Test): %.4g" % metrics.accuracy_score(y.values, pred))
     print("AUC Score (Test): %f" % metrics.roc_auc_score(y, predprob))
+
+def model_report_get(y, pred, predprob):
+    return(metrics.accuracy_score(y.values, pred), metrics.roc_auc_score(y, predprob))

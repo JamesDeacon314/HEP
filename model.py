@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from model_report import model_report
 from save_results import save_results
 
-def modelfit(alg, X, y, X_test, y_test, name1, name2, useTrainCV=True, cv_folds=5, early_stopping_rounds=80):
+def modelfit(alg, X, y, X_test, y_test, name1, name2, name3, name4, useTrainCV=True, cv_folds=5, early_stopping_rounds=80):
 
     if useTrainCV:
         xgb_param = alg.get_xgb_params()
@@ -32,6 +32,7 @@ def modelfit(alg, X, y, X_test, y_test, name1, name2, useTrainCV=True, cv_folds=
     dtest_predprob = alg.predict_proba(X_test)[:,1]
 
     model_report(y, dtrain_predictions, dtrain_predprob, y_test, dtest_predictions, dtest_predprob)
+    save_results(name3, name4, dtrain_predictions, dtrain_predprob)
     save_results(name1, name2, dtest_predictions, dtest_predprob)
 
     feat_imp = pd.Series(alg.get_booster().get_fscore()).sort_values(ascending=False)
